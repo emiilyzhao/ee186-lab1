@@ -18,8 +18,11 @@ Overall, the build compiles and links files to produce the **lab1.elf** file. Th
 User LEDs **LD1**, **LD2**, and **LD3** are available on the NUCLEO-L4R5ZI-P board.
 
 The pin name associated for each LED are:
+
 LD1 (green) 	: **PC7**
+
 LD2 (blue) 	: **PB7**
+
 LD3 (red)	: **PB14**
 
 Yes, these pins are configured as GPIOs, which means that they are in general-purpose mode and the code sets its level directly by writing to the GPIO output register instead of a peripheral controlling it.
