@@ -8,8 +8,8 @@
 
 // offset
 #define RCC_AHB2ENR_OFFSET  0x4CUL
-#define GPIO_MODER_OFFSET   0x00UL
-#define GPIO_ODR_OFFSET     0x14UL
+#define GPIO_MODER_OFFSET   0x00UL // configure mode (input/output)
+#define GPIO_ODR_OFFSET     0x14UL // output data register
 
 // Bit masks
 #define RCC_AHB2ENR_GPIOBEN (1UL << 1) // 10
@@ -31,7 +31,7 @@ void delay(uint32_t counter) {
 
 int main(void)
 {
-	// green LED on PC7, blue LED on PB7, red LED on PB14, shift bit positions by 7/8
+	// green LED on PC7, blue LED on PB7, red LED on PB14, shift bit positions by 7/14
 	// always &= with ~ OR |= to avoid modifying all pins
 
 	// enable clocks for both ports
@@ -39,7 +39,7 @@ int main(void)
 	(void)*rcc_ahb2enr;
 
     // set mode as GPIO (01 - general purpose output), two bits for configuration so *2
-    // clear this first because multi-pin
+    // clear this first because multipin (2) and OR cannot turn off pins 
     *gpioc_moder &= ~(3UL << (7 * 2)); // to clear: & forces bits to 0, ~ for NOT, change 1s to 0s
     *gpioc_moder |= (1UL << (7 * 2)); // to set: | sets bits to 01
     *gpiob_moder &= ~(3UL << (7 * 2)); // to clear: & forces bits to 0, ~ for NOT, change 1s to 0s
